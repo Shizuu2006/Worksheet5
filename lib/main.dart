@@ -1,87 +1,55 @@
 import 'package:flutter/material.dart';
 import 'identity.dart';
 
-void main() => runApp(const MaterialApp(home: Stage3()));
+void main() => runApp(const MaterialApp(home: Stage4()));
 
-class Stage3 extends StatelessWidget {
-  const Stage3({super.key});
+const bool showBrokenRow = true; // ubah false jika ingin menyembunyikan Row yang overflow
+const skills = ['Flutter', 'Dart', 'Git', 'Firebase', 'UI Design', 'REST API', 'SQL'];
+
+class Stage4 extends StatelessWidget {
+  const Stage4({super.key});
+
+  Widget buildBox(String label, Color color) => Container(
+        height: 100,
+        color: color,
+        alignment: Alignment.center,
+        child: Text(label),
+      );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Tahap 3 - LayoutBuilder')),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth < 600) {
-            return const CompactLayout();
-          } else if (constraints.maxWidth < 840) {
-            return const MediumLayout();
-          } else {
-            return const ExpandedLayout();
-          }
-        },
-      ),
-    );
-  }
-}
-
-// Perbedaan visual: jumlah panel (1 / 2 / 3) dan warna
-class CompactLayout extends StatelessWidget {
-  const CompactLayout({super.key});
-  @override
-  Widget build(BuildContext context) =>
-      const _LayoutDemo(category: 'Compact', color: Colors.blue, panels: 1);
-}
-
-class MediumLayout extends StatelessWidget {
-  const MediumLayout({super.key});
-  @override
-  Widget build(BuildContext context) =>
-      const _LayoutDemo(category: 'Medium', color: Colors.green, panels: 2);
-}
-
-class ExpandedLayout extends StatelessWidget {
-  const ExpandedLayout({super.key});
-  @override
-  Widget build(BuildContext context) =>
-      const _LayoutDemo(category: 'Expanded', color: Colors.orange, panels: 3);
-}
-
-class _LayoutDemo extends StatelessWidget {
-  final String category;
-  final Color color;
-  final int panels;
-  const _LayoutDemo(
-      {required this.category, required this.color, required this.panels});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('$studentId - $studentName',
-              style: const TextStyle(fontWeight: FontWeight.bold)),
-          Text('Kategori: $category',
-              style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: 12),
-          Expanded(
-            child: Row(
+      appBar: AppBar(title: const Text('Tahap 4 - Expanded & Wrap')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('$studentId - $studentName',
+                style: const TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 16),
+            const Text('Expanded flex 2 : 1'),
+            Row(
               children: [
-                for (var i = 1; i <= panels; i++)
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.all(4),
-                      color: color.withOpacity(0.3),
-                      alignment: Alignment.center,
-                      child: Text('Panel $i'),
-                    ),
-                  ),
+                Expanded(flex: 2, child: buildBox('A (flex 2)', Colors.indigo.shade200)),
+                const SizedBox(width: 8),
+                Expanded(child: buildBox('B (flex 1)', Colors.teal.shade200)),
               ],
             ),
-          ),
-        ],
+            const SizedBox(height: 16),
+            const Text('Wrap (aman)'),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: skills.map((e) => Chip(label: Text(e))).toList(),
+            ),
+            const SizedBox(height: 16),
+            if (showBrokenRow) ...[
+              const Text('Row biasa (overflow)'),
+              Row(children: skills.map((e) => Chip(label: Text(e))).toList()),
+            ],
+          ],
+        ),
       ),
     );
   }
