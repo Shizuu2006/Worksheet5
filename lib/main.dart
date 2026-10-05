@@ -1,38 +1,57 @@
 import 'package:flutter/material.dart';
 import 'identity.dart';
 
-void main() => runApp(const MaterialApp(home: Stage6()));
+void main() => runApp(const MaterialApp(home: HomePage()));
 
-class Stage6 extends StatelessWidget {
-  const Stage6({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Tahap 6 - Scroll')),
-      // LANGKAH 1: coba dulu dengan body: _content() saja (akan overflow).
-      // LANGKAH 2: bungkus dengan SingleChildScrollView seperti di bawah.
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: _content(),
+      appBar: AppBar(title: const Text('Home')),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('$studentId - $studentName'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DetailPage()),
+                );
+              },
+              child: const Text('Buka Detail'),
+            ),
+          ],
+        ),
       ),
     );
   }
+}
 
-  Widget _content() => Column(
-        children: [
-          const Text('$studentId - $studentName',
-              style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
-          for (var i = 1; i <= 12; i++) ...[
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Field $i',
-                border: const OutlineInputBorder(),
-              ),
+class DetailPage extends StatelessWidget {
+  const DetailPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Detail')), // ada tombol back otomatis
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('$studentId - $studentName'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Kembali'),
             ),
-            const SizedBox(height: 12),
           ],
-        ],
-      );
+        ),
+      ),
+    );
+  }
 }
