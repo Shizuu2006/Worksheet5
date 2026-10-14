@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../course_data.dart';
+import 'lifting_state_demo.dart';
 
 class PropDrillingDemoPage extends StatefulWidget {
   const PropDrillingDemoPage({super.key});
@@ -23,7 +24,21 @@ class _PropDrillingDemoPageState extends State<PropDrillingDemoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Demo Prop Drilling')),
+      appBar: AppBar(
+        title: const Text('Demo Prop Drilling'),
+        actions: [
+          IconButton(
+            tooltip: 'Demo Lifting State Up',
+            icon: const Icon(Icons.call_split),
+            onPressed: () => Navigator.push<void>(
+              context,
+              MaterialPageRoute<void>(
+                builder: (_) => const LiftingStateDemoPage(),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Padding(
