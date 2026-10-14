@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'prop_drilling_demo.dart';
+
 class LocalStateDemoPage extends StatefulWidget {
   const LocalStateDemoPage({super.key});
 
@@ -69,6 +71,17 @@ class _LocalStateDemoPageState extends State<LocalStateDemoPage> {
             'Contoh shared state untuk aplikasi ini adalah daftar favorite '
             'yang perlu dibaca dan diubah dari beberapa halaman. Demo ini '
             'belum menyimpan favorite secara global.',
+          ),
+          const SizedBox(height: 16),
+          OutlinedButton.icon(
+            onPressed: () => Navigator.push<void>(
+              context,
+              MaterialPageRoute<void>(
+                builder: (_) => const PropDrillingDemoPage(),
+              ),
+            ),
+            icon: const Icon(Icons.account_tree),
+            label: const Text('Buka demo Prop Drilling'),
           ),
         ],
       ),
