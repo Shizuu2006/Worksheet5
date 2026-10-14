@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'courses_page.dart';
+import 'experiments/local_state_demo.dart';
 import 'home_page.dart';
 import 'profile_page.dart';
 
@@ -24,7 +25,21 @@ class _ResponsiveShellState extends State<ResponsiveShell> {
         final expanded = c.maxWidth >= 840;
         final content = IndexedStack(index: _index, children: _pages);
         return Scaffold(
-          appBar: AppBar(title: const Text('Course Explorer')),
+          appBar: AppBar(
+            title: const Text('Course Explorer'),
+            actions: [
+              IconButton(
+                tooltip: 'Demo local state',
+                icon: const Icon(Icons.science),
+                onPressed: () => Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (_) => const LocalStateDemoPage(),
+                  ),
+                ),
+              ),
+            ],
+          ),
           body: expanded
               ? Row(
                   children: [
