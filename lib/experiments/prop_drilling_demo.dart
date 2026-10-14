@@ -37,17 +37,16 @@ class _PropDrillingDemoPageState extends State<PropDrillingDemoPage> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  'Data dan callback diteruskan lewat Parent → CourseSection '
-                  '→ CourseList → CourseRow. Lapisan tengah meneruskan '
-                  'parameter meskipun tidak menggunakannya.',
+                  'Parent meneruskan favorites ke dua child: ringkasan dan '
+                  'daftar kursus. Daftar meneruskan nilainya ke setiap baris '
+                  'dan mengirim perubahan kembali melalui callback.',
                 ),
-                const SizedBox(height: 8),
-                Text('Jumlah favorite: ${_favoriteCodes.length}'),
               ],
             ),
           ),
+          _FavoriteSummary(favoriteCodes: _favoriteCodes),
           Expanded(
-            child: _CourseSection(
+            child: _CourseList(
               courses: courses,
               favoriteCodes: _favoriteCodes,
               onToggleFavorite: _toggleFavorite,
@@ -59,23 +58,26 @@ class _PropDrillingDemoPageState extends State<PropDrillingDemoPage> {
   }
 }
 
-class _CourseSection extends StatelessWidget {
-  final List<Map<String, dynamic>> courses;
+class _FavoriteSummary extends StatelessWidget {
   final Set<String> favoriteCodes;
-  final ValueChanged<String> onToggleFavorite;
 
-  const _CourseSection({
-    required this.courses,
-    required this.favoriteCodes,
-    required this.onToggleFavorite,
-  });
+  const _FavoriteSummary({required this.favoriteCodes});
 
   @override
   Widget build(BuildContext context) {
-    return _CourseList(
-      courses: courses,
-      favoriteCodes: favoriteCodes,
-      onToggleFavorite: onToggleFavorite,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Card(
+        child: ListTile(
+          leading: const Icon(Icons.favorite, color: Colors.red),
+          title: Text('Jumlah favorite: ${favoriteCodes.length}'),
+          subtitle: Text(
+            favoriteCodes.isEmpty
+                ? 'Belum ada course yang dipilih.'
+                : favoriteCodes.join(', '),
+          ),
+        ),
+      ),
     );
   }
 }

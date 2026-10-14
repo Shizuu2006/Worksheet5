@@ -1,6 +1,6 @@
 # Catatan Worksheet State Management & Architecture
 
-## Tahap 1 — Local State vs Shared State
+## Tahap 1 - Local State vs Shared State
 
 | State atau data | Lokasi/penggunaan di Course Explorer | Kategori | Alasan |
 |---|---|---|---|
@@ -14,3 +14,20 @@
 Pada eksperimen Tahap 1, counter dan switch menggunakan `setState()` di
 `LocalStateDemoPage`. Keduanya adalah local state karena hanya diperlukan oleh
 halaman demo tersebut.
+
+## Tahap 2 - Masalah setState() Saat Aplikasi Membesar
+
+Demo menyimpan satu `Set<String>` favorite dan mengubahnya dengan
+`setState()` di `PropDrillingDemoPage`. Parent mengirim nilai yang sama melalui
+constructor ke `_FavoriteSummary` dan `_CourseList`; `_CourseList` menghitung
+status tiap baris dan mengirim callback toggle ke parent.
+
+Bagian yang berulang atau mulai sulit diikuti:
+
+- `favoriteCodes` harus ditambahkan sebagai field, parameter constructor, dan
+  argumen saat membuat kedua child.
+- Callback `onToggleFavorite` harus ikut diteruskan ke daftar dan dibungkus
+  dengan kode course untuk setiap baris.
+- Jika child baru juga membutuhkan favorite, parent perlu menambahkan lagi
+  parameter dan wiring callback. Makin dalam hierarki widget, makin banyak
+  lapisan yang hanya meneruskan nilai.
