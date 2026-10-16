@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../course_card.dart';
 import '../course_data.dart';
 import '../identity.dart';
+import 'value_notifier_demo.dart';
 
 class LiftingStateDemoPage extends StatefulWidget {
   const LiftingStateDemoPage({super.key});
@@ -27,7 +28,21 @@ class _LiftingStateDemoPageState extends State<LiftingStateDemoPage> {
     final course = courses.first;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Tahap 3 - Lifting State Up')),
+      appBar: AppBar(
+        title: const Text('Tahap 3 - Lifting State Up'),
+        actions: [
+          IconButton(
+            tooltip: 'Demo ValueNotifier',
+            icon: const Icon(Icons.speed),
+            onPressed: () => Navigator.push<void>(
+              context,
+              MaterialPageRoute<void>(
+                builder: (_) => const ValueNotifierDemoPage(),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [

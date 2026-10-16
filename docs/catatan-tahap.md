@@ -40,3 +40,12 @@ Child tidak menyimpan salinan state lokal; perubahan dikirim via callback (`onFa
 
 Kekurangannya: parent tetap harus meneruskan data dan callback secara manual ke child melalui constructor.
 
+## Tahap 4 - ValueNotifier dan ValueListenableBuilder
+
+Saat tombol ditekan pada `ValueNotifierDemoPage`, log `debugPrint` membuktikan bahwa hanya `ValueListenableBuilder` yang di-rebuild untuk memperbarui teks angka. Widget induk (`ValueNotifierDemoPage`) tidak mengalami rebuild sama sekali.
+
+Perbandingan dengan `setState()`:
+- `setState()` membangun ulang seluruh method `build()` pada widget pemilik state tersebut beserta seluruh subtree-nya (kecuali child const).
+- `ValueNotifier` + `ValueListenableBuilder` hanya membangun ulang widget di dalam builder yang mendengarkan perubahan nilai. Pola listener ini menjadi jembatan konsep menuju `ChangeNotifier` pada tahap berikutnya.
+
+
