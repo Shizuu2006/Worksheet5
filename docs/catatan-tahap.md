@@ -48,4 +48,11 @@ Perbandingan dengan `setState()`:
 - `setState()` membangun ulang seluruh method `build()` pada widget pemilik state tersebut beserta seluruh subtree-nya (kecuali child const).
 - `ValueNotifier` + `ValueListenableBuilder` hanya membangun ulang widget di dalam builder yang mendengarkan perubahan nilai. Pola listener ini menjadi jembatan konsep menuju `ChangeNotifier` pada tahap berikutnya.
 
+## Tahap 5 - ChangeNotifier dan notifyListeners()
+
+`CourseProvider` memisahkan state `favorites` dan aksinya (`toggleFavorite()`, `isFavorite()`) dari widget tree ke dalam class mandiri yang mewarisi `ChangeNotifier`.
+
+Saat state berubah di `toggleFavorite()`, pemanggilan `notifyListeners()` wajib dilakukan agar semua listener yang mendengarkan provider ini diberitahu untuk membangun ulang UI mereka. Pengujian unit pada `test/course_provider_test.dart` membuktikan bahwa listener terpanggil tepat 2 kali untuk 2 kali toggle dan data favorit tersimpan dengan benar.
+
+
 
