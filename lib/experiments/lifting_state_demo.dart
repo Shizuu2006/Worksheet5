@@ -12,7 +12,7 @@ class LiftingStateDemoPage extends StatefulWidget {
 }
 
 class _LiftingStateDemoPageState extends State<LiftingStateDemoPage> {
-  bool _isFavorite = false; // single source of truth
+  bool _isFavorite = false;
 
   void _setFavorite(bool value) {
     setState(() => _isFavorite = value);

@@ -1,5 +1,3 @@
-// Demo Tahap 1,2,3,4,6,7,16. Tiap demo punya saklar "Fix" di AppBar:
-// OFF = kondisi bermasalah, ON = sudah diperbaiki.
 import 'package:flutter/material.dart';
 
 import 'identity.dart';

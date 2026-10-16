@@ -28,7 +28,7 @@ class CourseDetailPage extends StatelessWidget {
             const Text('NIM: $studentId'),
             const SizedBox(height: 24),
             FilledButton.icon(
-              onPressed: () => Navigator.pop(context, true), // kirim hasil true
+              onPressed: () => Navigator.pop(context, true),
               icon: const Icon(Icons.favorite),
               label: const Text('Pilih sebagai Favorite'),
             ),
