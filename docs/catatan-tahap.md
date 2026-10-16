@@ -31,3 +31,12 @@ Bagian yang berulang atau mulai sulit diikuti:
 - Jika child baru juga membutuhkan favorite, parent perlu menambahkan lagi
   parameter dan wiring callback. Makin dalam hierarki widget, makin banyak
   lapisan yang hanya meneruskan nilai.
+
+## Tahap 3 - Lifting State Up dan Single Source of Truth
+
+Setelah state dipindah ke parent (`LiftingStateDemoPage`), kartu (`CourseCard`) dan kotak switch (`_FavoriteSwitch`) selalu konsisten karena hanya ada satu variabel `_isFavorite` sebagai *single source of truth*.
+
+Child tidak menyimpan salinan state lokal; perubahan dikirim via callback (`onFavoriteTap` dan `onChanged`) ke method parent yang memanggil `setState()`.
+
+Kekurangannya: parent tetap harus meneruskan data dan callback secara manual ke child melalui constructor.
+

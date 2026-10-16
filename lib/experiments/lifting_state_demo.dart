@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../course_card.dart';
 import '../course_data.dart';
+import '../identity.dart';
 
 class LiftingStateDemoPage extends StatefulWidget {
   const LiftingStateDemoPage({super.key});
@@ -11,7 +12,7 @@ class LiftingStateDemoPage extends StatefulWidget {
 }
 
 class _LiftingStateDemoPageState extends State<LiftingStateDemoPage> {
-  bool _isFavorite = false;
+  bool _isFavorite = false; // single source of truth
 
   void _setFavorite(bool value) {
     setState(() => _isFavorite = value);
@@ -26,14 +27,16 @@ class _LiftingStateDemoPageState extends State<LiftingStateDemoPage> {
     final course = courses.first;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Demo Lifting State Up')),
+      appBar: AppBar(title: const Text('Tahap 3 - Lifting State Up')),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          const IdentityBanner(),
+          const SizedBox(height: 16),
           Text(
-            'Parent menyimpan satu nilai favorite. Kartu dan switch menerima '
-            'nilai itu melalui constructor, lalu mengirim aksi kembali lewat '
-            'callback.',
+            'Parent menyimpan satu nilai favorite (Single Source of Truth). '
+            'Kartu dan switch menerima nilai itu melalui constructor, lalu '
+            'mengirim aksi kembali lewat callback.',
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           const SizedBox(height: 16),
